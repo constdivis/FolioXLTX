@@ -1,0 +1,61 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{../styles/folio}[2026/11/20 FolioXLTX shared styles]
+
+\RequirePackage{fontspec}
+\setmainfont{Times New Roman}
+\setmonofont{Courier New}
+\RequirePackage[english,main=russian]{babel}
+\RequirePackage[left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
+\RequirePackage{graphicx}
+\RequirePackage{amsmath}
+\RequirePackage{csquotes}
+\RequirePackage{xcolor}
+\RequirePackage{soul}
+\RequirePackage{mdframed}
+
+\makeatletter
+\def\SOUL@tt{\ttfamily\fontsize{10}{10}\selectfont}
+\setbox\z@\hbox{\SOUL@tt-}
+\SOUL@ttwidth\wd\z@
+\makeatother
+
+\definecolor{DraftBackground}{HTML}{EAF2F8}
+\sethlcolor{DraftBackground}
+\newmdenv[
+  backgroundcolor=DraftBackground,
+  hidealllines=true,
+  leftmargin=0pt,
+  rightmargin=0pt,
+  innerleftmargin=4pt,
+  innerrightmargin=4pt,
+  innertopmargin=4pt,
+  innerbottommargin=4pt,
+  skipabove=6pt,
+  skipbelow=6pt
+]{draft}
+
+\RequirePackage[
+  backend=biber,
+  style=gost-authoryear,
+  maxcitenames=3,
+  maxbibnames=12,
+  minnames=1,
+  movenames=false,
+  ibidtracker=false,
+  autolang=other
+]{biblatex}
+
+\addbibresource{../bibliography.bib}
+
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \step[fieldsource=langid, match=russian, final]
+      \step[fieldset=presort, fieldvalue={a}]
+    }
+    \map{
+      \step[fieldsource=langid, notmatch=russian, final]
+      \step[fieldset=presort, fieldvalue={z}]
+    }
+  }
+}
